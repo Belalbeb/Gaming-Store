@@ -1,0 +1,14 @@
+@if(isDashboard){
+    <router-outlet></router-outlet>
+
+
+}
+@else {
+<app-header></app-header>
+@if(isHome){
+    <app-content></app-content>
+}
+
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+}

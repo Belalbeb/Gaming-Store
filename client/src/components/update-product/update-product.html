@@ -1,0 +1,143 @@
+<div>
+    <div class="flex gap-1.5 mb-5 ">
+    <h2 class="text-white font-medium text-xl ">Action On Product</h2>
+    <mat-icon class="!text-amber-400">edit_square</mat-icon>
+    </div>
+    <form class="flex flex-col gap-5" [formGroup]="productForm" (ngSubmit)="submitProduct()" >
+ <div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Title</label>
+
+  <input
+    type="text"
+    formControlName="name"
+    placeholder="Enter product title..."
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+</div>
+<div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Trailor Video Link (embed video link)</label>
+
+  <input
+    type="text"
+    formControlName="Trailer_Link"
+    placeholder="video trailor"
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+</div>
+       <div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Price</label>
+
+  <input
+    type="text"
+    formControlName="price"
+    placeholder="Price"
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+</div>
+<div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Release Date</label>
+
+  <input
+    type="Date"
+    formControlName="releaseDate"
+    placeholder="Date"
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+</div>
+ <div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Description</label>
+
+  <input
+    type="text"
+    formControlName="description" 
+    placeholder="Enter Description for this product"
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-4 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+</div>
+       <div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Rating</label>
+
+  <input
+    type="text"
+    placeholder="rating"
+    formControlName="rate"
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+</div>
+<div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Card Image</label>
+
+  <input
+    type="file"
+    
+    placeholder="Card Image"
+    (change)="onCardImageSelected($event)"
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+    <div class="flex gap-3" >
+        <img *ngIf="!cardImagePreview" [src]="'https://localhost:7187'+CardImage.imageUrl" class="h-30"/>
+       <img *ngIf="cardImagePreview" [src]="cardImagePreview" alt="Card Image" class=" h-30 object-cover rounded" />
+    </div>
+</div>
+<div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Product Images</label>
+
+  <input
+    type="file"
+    multiple
+    (change)="onProductImagesSelected($event)"
+    placeholder="Card Image"
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+             <div class="flex gap-2 flex-wrap m-2 " *ngIf="productImagesPreviews.length==0">
+    @for (item of product.images; track $index) {
+        @if (!item.isMain) {
+
+          <img [src]="'https://localhost:7187'+item.imageUrl" class="h-30"/>
+        }
+
+    
+    }
+  </div>
+  <div class="flex gap-2" *ngIf="productImagesPreviews.length>0">
+  <img *ngFor="let img of productImagesPreviews" [src]="img" class="w-24 h-24 object-cover rounded" />
+</div>
+</div>
+
+<div>
+  <input 
+  
+    type="submit" 
+    value="Update"
+    class=" bg-amber-400 hover:bg-amber-500 
+           text-black font-semibold 
+           py-2 px-4 rounded-lg
+           transition duration-200
+           cursor-pointer
+           shadow-md hover:shadow-lg"
+  />
+      <button class="text-black font-semibold min-w-18  m-2 bg-red-700 hover:bg-red-500 hover:cursor-pointer rounded-lg p-2 ">Delete</button>
+
+</div>
+    </form>
+
+
+
+</div>
+

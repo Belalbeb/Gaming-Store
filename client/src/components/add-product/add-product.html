@@ -1,0 +1,141 @@
+<div>
+    <div class="flex gap-1.5 mb-5 ">
+    <h2 class="text-white font-medium text-xl ">ADD Product</h2>
+    <mat-icon class="!text-amber-400">add_business</mat-icon>
+    </div>
+    <form class="flex flex-col gap-5" [formGroup]="productForm" (ngSubmit)="submitProduct()" >
+ <div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Title</label>
+
+  <input
+    type="text"
+    formControlName="name"
+    placeholder="Enter product title..."
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+</div>
+<div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Trailor Video Link (embed video link)</label>
+
+  <input
+    type="text"
+    formControlName="Trailer_Link"
+    placeholder="video trailor"
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+</div>
+       <div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Price</label>
+
+  <input
+    type="text"
+    formControlName="price"
+    placeholder="Price"
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+</div>
+
+       <div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Category</label>
+  <select  formControlName="category"   class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" >
+    <option value="" disabled selected >category</option>
+    <option value="0">PC</option>
+    <option value="1">PS4</option>
+    <option value="2">PS5</option>
+    <option value="3">XBOX</option>
+    
+    
+  </select>
+
+ 
+</div>
+
+<div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Release Date</label>
+
+  <input
+    type="Date"
+    formControlName="releaseDate"
+    placeholder="Date"
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+</div>
+ <div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Description</label>
+
+  <input
+    type="text"
+    formControlName="description" 
+    placeholder="Enter Description for this product"
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-4 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+</div>
+       <div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Rating</label>
+
+  <input
+    type="text"
+    placeholder="rating"
+    formControlName="rate"
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+</div>
+<div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Card Image</label>
+
+  <input
+    type="file"
+    placeholder="Card Image"
+    (change)="onCardImageSelected($event)"
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+</div>
+<div class="flex flex-col gap-2">
+  <label class="text-sm font-medium text-gray-200">Product Images</label>
+
+  <input
+    type="file"
+    multiple
+    (change)="onProductImagesSelected($event)"
+    placeholder="Card Image"
+    class="w-full rounded-lg bg-zinc-800 border border-zinc-700 
+           px-4 py-2 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-amber-400 
+           focus:border-amber-400 transition duration-200" />
+</div>
+
+<div>
+  <input 
+  
+    type="submit" 
+    value="Submit"
+    class=" bg-amber-400 hover:bg-amber-500 
+           text-black font-semibold 
+           py-2 px-4 rounded-lg
+           transition duration-200
+           cursor-pointer
+           shadow-md hover:shadow-lg"
+  />
+</div>
+    </form>
+
+
+</div>
+

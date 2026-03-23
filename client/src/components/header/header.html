@@ -1,0 +1,66 @@
+<header class="bg-black flex justify-between h-25  items-center  px-4 relative border-b border-gray-500">
+
+  <!-- <h1 class="text-white">{{counter|async}}</h1> -->
+  <!-- Logo -->
+  <a href="/" class="text-white text-lg font-bold ml-4 hover:cursor-pointer">
+    Gaming<img src="assets/logo2.png" class="h-8 rounded-2xl inline "/>  <span class="text-amber-300">Store</span>
+  </a>
+
+  <!-- Desktop Menu -->
+  <nav class="hidden md:flex md:gap-5 space-x-3">
+    <a href="" class="!no-underline p-2 font-semibold !text-amber-300 font-sans text-[16px] transition duration-150 ease-in-out hover:!text-amber-300" data-aos="fade-down"
+     data-aos-easing="linear"
+     data-aos-duration="1500">Products</a>
+    <a routerLink="/aboutus" class="!no-underline p-2 font-semibold text-white transition duration-150 ease-in-out hover:!text-amber-300 font-sans text-[16px]" data-aos="zoom-in">About us</a>
+    <a routerLink="/contactus" class="!no-underline p-2 font-semibold text-white transition duration-150 ease-in-out hover:!text-amber-300 font-sans text-[16px]" data-aos="zoom-in">Contact us</a>
+      <a href="" class="!no-underline p-2 font-semibold text-white transition duration-150 ease-in-out hover:!text-amber-300 font-sans text-[16px]" data-aos="zoom-in" routerLink="/wishlist">WishList</a>
+     
+  
+  
+
+    
+    @if (!(authService.isLoggedIn$|async)) {
+    <a routerLink="/signup" class="!no-underline p-2 font-semibold text-white transition duration-150 ease-in-out hover:!text-amber-300 font-sans text-[16px]" data-aos="zoom-in">Register</a>
+    <a routerLink="/signin" class="!no-underline p-2 font-semibold text-white transition duration-150 ease-in-out hover:!text-amber-300 font-sans text-[16px]" data-aos="zoom-in">Login</a>
+    }
+  </nav>
+<div class="flex items-center space-x-4 md:space-x-6 ">
+   @if(authService.isLoggedIn$|async){
+   <div class="my-auto relative ">
+  <i class="fa-regular fa-circle-user text-white text-2xl hover:cursor-pointer" (click)="toggleInfo()" ></i>
+  <div  [ngClass]="Info?'bg-[#030303] absolute right-[-40px] flex flex-col gap-2 p-3 z-50 rounded':'hidden'">
+    <h2 class="text-amber-300 border-b border-gray-300">{{email}}</h2>
+    <a routerLink="/dashboard" class="text-white hover:border hover:rounded p-1 hover:bg-amber-50 hover:text-black">Dashboard</a>
+     <a routerLink="/signin" class="!no-underline p-2 font-semibold bg-[#E11D48] rounded text-center text-white transition duration-150 ease-in-out hover:text-[#E11D48] hover:bg-white hover:border hover:border-[#E11D48]" data-aos="zoom-in" (click)="Logout()">Logout</a>
+
+  </div>
+  
+    </div>}
+
+  <mat-icon
+    class="cart-icon !text-white text-3xl cursor-pointer"
+    matBadge="{{cartServices.cartCount$|async}}"
+    matBadgeOverlap="false"
+    matBadgePosition="above after"
+    (click)="goToCart()">
+    shopping_cart
+  </mat-icon>
+
+  <!-- Mobile Menu Button -->
+  <button class="md:hidden text-white focus:outline-none" (click)="toggleMenu()" aria-label="Toggle menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+</div>
+
+
+  <!-- Mobile Menu -->
+  <div *ngIf="isMenuOpen" class="absolute top-full left-0 w-full bg-gray-900 flex flex-col p-4 space-y-3 md:hidden z-50" data-aos="fade-down">
+    <a href="" class="!no-underline p-2 font-semibold !text-amber-300 transition duration-150 ease-in-out hover:text-amber-300" (click)="closeMenu()">Products</a>
+    <a routerLink="/aboutus" class="!no-underline p-2 font-semibold text-white transition duration-150 ease-in-out hover:!text-amber-300" (click)="closeMenu()">About us</a>
+    <a routerLink="/contactus" class="!no-underline p-2 font-semibold text-white transition duration-150 ease-in-out hover:!text-amber-300" (click)="closeMenu()">Contact us</a>
+    <a href="" class="!no-underline p-2 font-semibold text-white transition duration-150 ease-in-out hover:!text-amber-300" (click)="closeMenu()">Register</a>
+    <a href="" class="!no-underline p-2 font-semibold text-white transition duration-150 ease-in-out hover:!text-amber-300" (click)="closeMenu()">Login</a>
+    <a href="" class="!no-underline p-2 font-semibold text-white transition duration-150 ease-in-out hover:!text-amber-300" (click)="closeMenu()" routerLink="/wishlist">WishList</a>
+  </div>
+
+</header>

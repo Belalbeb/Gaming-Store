@@ -1,0 +1,243 @@
+<div class="min-h-screen bg-zinc-950 text-white px-4 md:px-10 py-8">
+
+
+  <!-- TITLE -->
+  <div class="mb-6">
+    <h1 class="text-3xl md:text-4xl font-bold">{{ product.name }}</h1>
+
+     <div class="flex items-center mt-2">
+
+      <ng-container *ngFor="let star of stars; let i = index">
+        <mat-icon
+          class="!text-amber-400"
+        >
+          {{ i < product.rate ? 'star' : 'star_border' }}
+        </mat-icon>
+      </ng-container>
+
+      <span class="ml-2 text-lg text-gray-400">
+        {{ product.rate }}
+      </span>
+
+    </div>
+  </div>
+
+
+  <!-- MAIN GRID -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+    <!-- ===================== -->
+    <!-- LEFT SIDE - GALLERY -->
+    <!-- ===================== -->
+    <div class="lg:col-span-2">
+
+      <!-- SLIDER -->
+      <div class="relative overflow-hidden rounded-2xl bg-zinc-900 h-[320px] md:h-[420px]">
+
+        <div
+          class="flex transition-transform duration-500 ease-in-out h-full"
+          [style.transform]="'translateX(-' + currentSlide * 100 + '%)'"
+        >
+          <img
+            *ngFor="let img of sliderImages"
+            [src]="'https://localhost:7187'+img.imageUrl"
+            class="w-full flex-shrink-0 object-cover"
+          />
+        </div>
+
+        <!-- ARROWS -->
+        <button
+          (click)="prevSlide()"
+          class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black p-3 rounded-full text-xl">
+          ‹
+        </button>
+
+        <button
+          (click)="nextSlide()"
+          class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black p-3 rounded-full text-xl">
+          ›
+        </button>
+      </div>
+
+
+      <!-- THUMBNAILS -->
+      <div class="flex gap-3 mt-4 overflow-x-auto pb-2">
+        <img
+          *ngFor="let img of sliderImages; let i = index"
+          (click)="currentSlide = i"
+          [src]="'https://localhost:7187'+img.imageUrl"
+          class="w-20 h-20 object-cover rounded-lg cursor-pointer border-2 transition"
+          [ngClass]="i === currentSlide
+            ? 'border-yellow-400'
+            : 'border-transparent hover:border-zinc-600'"
+        />
+      </div>
+
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- RIGHT SIDE - PRODUCT CARD -->
+    <!-- ===================== -->
+    <div class="bg-zinc-900 rounded-2xl p-6 flex flex-col gap-4 h-fit">
+
+      <!-- MAIN IMAGE -->
+       @for (item of product.images; track $index) {
+      <img
+      *ngIf="item.isMain"
+        
+        [src]="'https://localhost:7187'+item.imageUrl"
+       
+        class="w-full h-56 object-contain rounded-xl"
+      />}
+      <!-- INFO -->
+      <h2 class="text-xl font-semibold">{{ product.name }}</h2>
+
+   
+
+      <p class="text-3xl font-bold text-yellow-400">
+        ${{ product.price }}
+      </p>
+
+      <!-- BUTTONS -->
+      <button
+        class="w-full py-3 bg-yellow-400 hover:bg-yellow-300 text-black font-bold rounded-xl transition">
+        Add to Cart
+      </button>
+
+      <button
+        class="w-full py-3 rounded-xl font-bold transition"
+        [ngClass]="product.loved
+          ? 'bg-red-600 hover:bg-red-500 text-white'
+          : 'bg-zinc-800 hover:bg-zinc-700 text-white'">
+
+        {{ product.loved ? 'Loved ❤️' : 'Add to Wishlist' }}
+      </button>
+
+      <!-- EXTRA -->
+      <div class="border-t border-zinc-800 pt-4 text-sm text-gray-400">
+        <div class="flex flex-col gap-4">
+        <div class="flex justify-between  border-b-gray-400">
+          <span>Release Date</span>
+          <span class="text-white">{{ product.releaseDate|date}}</span>
+        </div>
+              <div class="flex justify-between border-b-gray-400">
+          <span>PlatForm</span>
+          <span class="text-white">{{ getCategoryName(product.category)}}</span>
+        </div>
+       
+         <button (click)="ChangeShare()"
+  class="flex items-center justify-center gap-2 bg-amber-400  text-black px-4 py-2 rounded-xl font-medium hover:bg-amber-500 transition hover:cursor-pointer shadow-md"
+>
+  <mat-icon class="text-lg">share</mat-icon>
+  Share
+       </button>
+  <!-- overlay -->
+<div class="fixed inset-0  bg-black/40 backdrop-blur-sm flex items-center justify-center z-50" [hidden]="!isShare">
+
+  <!-- modal -->
+  <div class="bg-white rounded-2xl shadow-xl w-[420px] p-6 flex flex-col gap-5">
+
+    <!-- header -->
+    <div class="flex justify-between items-center">
+      <h2 class="text-lg font-semibold text-gray-800">Share Link</h2>
+
+      <button class="hover:bg-gray-100 rounded-full p-1 transition" (click)="ChangeShare()">
+        <mat-icon class="text-gray-600">close</mat-icon>
+      </button>
+    </div>
+
+    <!-- description -->
+    <p class="text-sm text-gray-500">
+      Anyone who has this link will be able to view this.
+    </p>
+
+    <!-- link box -->
+    <div class="flex items-center border border-gray-300 rounded-xl overflow-hidden">
+
+      <input
+        type="text"
+        [value]="inputValue"
+        readonly
+        class="flex-1 px-3 py-2 text-sm focus:outline-none"
+      />
+
+      <button
+        (click)="copyLink()"
+        class="flex items-center gap-1 px-3 py-2 bg-amber-400 hover:bg-amber-500 transition text-sm font-medium hover:cursor-pointer">
+
+        <mat-icon class="text-sm">content_copy</mat-icon>
+        Copy
+      </button>
+
+    </div>
+
+    <!-- footer -->
+    <button (click)="ChangeShare()"
+      class="w-full bg-rose-500 text-white rounded-xl py-2 hover:bg-rose-600 transition font-medium hover:cursor-pointer">
+      Close
+    </button>
+
+  </div>
+
+</div>
+       </div>
+ 
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ===================== -->
+  <!-- DESCRIPTION -->
+  <!-- ===================== -->
+  <div class="mt-16 max-w-4xl mx-5">
+    <h2 class="text-2xl font-bold mb-4 text-white">About this product</h2>
+
+    <p class="text-gray-400 leading-relaxed text-lg">
+      {{ product.description }}
+    </p>
+  </div>
+
+
+  <!-- ===================== -->
+  <!-- VIDEO -->
+  <!-- ===================== -->
+  <div class="mt-12 max-w-4xl mx-5">
+
+    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2 text-white">
+      <mat-icon class="!text-amber-300">sports_esports</mat-icon>
+      Gameplay
+    </h2>
+
+    <div class="rounded-xl overflow-hidden">
+      <app-youtube-embed [Link]="product.trailor_Link"></app-youtube-embed>
+    </div>
+
+  </div>
+
+
+  <!-- ===================== -->
+  <!-- RELATED PRODUCTS -->
+  <!-- ===================== -->
+  <div class="mt-16">
+
+    <h2 class="text-2xl font-bold mb-6 ml-5 text-white ">
+      Games with same category
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+
+  <div *ngFor="let item of products; let x=index" data-aos="fade-up">
+    @if (x< 3) {
+    <app-product [product]="item" class="w-full"></app-product>
+    }
+  </div>
+
+</div>
+
+  </div>
+

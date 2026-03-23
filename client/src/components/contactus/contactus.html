@@ -1,0 +1,98 @@
+<div class="bg-[#1A1A1A] w-full mx-auto p-6 rounded-2xl shadow-lg max-w-xl">
+
+  <h3 class="text-amber-300 font-semibold text-xl mb-6">
+    Contact Form
+  </h3>
+
+  <form [formGroup]="contactForm"
+        (ngSubmit)="submit()"
+        class="flex flex-col gap-4">
+
+   
+    <div class="flex flex-col sm:flex-row gap-4">
+
+  
+      <div class="w-full">
+        <input
+          type="email"
+          placeholder="Email"
+          formControlName="email"
+          class="bg-white px-4 py-2 rounded-lg text-gray-700 text-sm w-full focus:outline-none focus:ring-2 focus:ring-amber-300"
+        />
+  
+        <div class="text-red-500 text-xs mt-1"
+             *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+
+          <div *ngIf="contactForm.get('email')?.errors?.['required']">
+            Email is required
+          </div>
+
+          <div *ngIf="contactForm.get('email')?.errors?.['email']">
+            Invalid email format
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="w-full">
+        <input
+          type="text"
+          placeholder="Your Name"
+          formControlName="name"
+          class="bg-white px-4 py-2 rounded-lg text-gray-700 text-sm w-full focus:outline-none focus:ring-2 focus:ring-amber-300"
+        />
+
+ 
+        <div class="text-red-500 text-xs mt-1"
+             *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
+
+          <div *ngIf="contactForm.get('name')?.errors?.['required']">
+            Name is required
+          </div>
+
+          <div *ngIf="contactForm.get('name')?.errors?.['minlength']">
+            Name must be at least 3 characters
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <div>
+      <textarea
+        rows="4"
+        placeholder="Type your message here..."
+        formControlName="message"
+        class="bg-white px-4 py-2 rounded-lg text-gray-700 text-sm w-full resize-none focus:outline-none focus:ring-2 focus:ring-amber-300"
+      ></textarea>
+
+
+      <div class="text-red-500 text-xs mt-1"
+           *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.invalid">
+
+        <div *ngIf="contactForm.get('message')?.errors?.['required']">
+          Message is required
+        </div>
+
+        <div *ngIf="contactForm.get('message')?.errors?.['minlength']">
+          Message must be at least 10 characters
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flex justify-start">
+      <button
+        type="submit"
+        class="bg-amber-300 text-sm font-medium rounded-lg px-6 py-2 transition duration-200 hover:bg-amber-400 hover:scale-105 disabled:opacity-50"
+        [disabled]="contactForm.invalid"
+      >
+        Send
+      </button>
+    </div>
+
+  </form>
+</div>

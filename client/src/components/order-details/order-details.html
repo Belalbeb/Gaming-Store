@@ -1,0 +1,113 @@
+<div class=" bg-black/60 flex items-center justify-center  p-4"
+     (click)="onBackdropClick($event)">
+
+  <div class="bg-[#1c1c1c] rounded-2xl w-full max-w-2xl shadow-2xl"
+       (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center px-6 py-4 border-b border-white/10">
+      <div>
+        <h2 class="text-white text-lg font-semibold">Order #{{order.id}}</h2>
+        <p class="text-xs text-gray-400">
+          {{order.createdAt | date:'medium'}}
+        </p>
+      </div>
+
+      <span class="px-3 py-1 text-xs rounded-full"
+[ngClass]="Status==0 
+  ? 'bg-yellow-500/15 text-yellow-400' 
+  : Status==2 
+    ? 'bg-green-500/15 text-green-400' 
+    : 'bg-red-500/15 text-red-400'">
+        {{getStatus(Status)}}
+      </span>
+    </div>
+
+
+    <!-- Customer -->
+    <div class="px-6 py-4 border-b border-white/10">
+      <h3 class="text-xs uppercase text-gray-500 mb-2">Customer</h3>
+
+      <div class="flex justify-between text-sm">
+        <span class="text-gray-400">Name</span>
+        <span class="text-white">{{order.name}}</span>
+      </div>
+
+      <div class="flex justify-between text-sm mt-1">
+        <span class="text-gray-400">Email</span>
+        <span class="text-white">{{order.email}}</span>
+      </div>
+    </div>
+
+
+    <!-- Items -->
+    <div class="px-6 py-4 space-y-3 border-b border-white/10">
+
+      <h3 class="text-xs uppercase text-gray-500 mb-2">Items</h3>
+
+      <div *ngFor="let item of order.orderItems"
+           class="flex items-center justify-between bg-white/5 rounded-lg p-3">
+
+        <div class="flex items-center gap-3">
+            @for (image of item.product.images; track $index) {
+                @if (image.isMain) {
+
+          <img
+            [src]="'https://localhost:7187' + image.imageUrl"
+            class="w-12 h-12 rounded-lg object-cover"/>}}
+
+          <div>
+            <p class="text-white text-sm font-medium">
+              {{item.product?.name}}
+            </p>
+
+            <p class="text-xs text-gray-400">
+              qty: {{item.quantity}}
+            </p>
+          </div>
+
+        </div>
+
+        <span class="text-white font-medium">
+          ${{item.price * item.quantity}}
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- Total -->
+    <div class="flex justify-between items-center px-6 py-4 border-b border-white/10">
+
+      <span class="text-gray-400 text-sm">Total</span>
+
+      <span class="text-white text-xl font-bold">
+        ${{order.totalAmount}}
+      </span>
+
+    </div>
+
+
+    <!-- Actions -->
+     @if (order.status==0) {
+    <div class="flex gap-3 px-6 py-4">
+
+      <button
+        (click)="acceptOrder(order.id)"
+        class="flex-1 bg-green-600 hover:bg-green-700 text-white
+               py-2 rounded-lg font-medium transition">
+        Accept Order
+      </button>
+
+      <button
+        (click)="rejectOrder(order.id)"
+        class="flex-1 bg-red-600 hover:bg-red-700 text-white
+               py-2 rounded-lg font-medium transition">
+        Reject Order
+      </button>
+
+    </div>
+     }
+  </div>
+</div>

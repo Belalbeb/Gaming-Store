@@ -1,0 +1,139 @@
+<!-- Cart Items Container -->
+ @if(cartItems.length==0){
+  <div class="min-h-1/2 p-4">
+  <h3 class="text-amber-300 text-3xl font-medium text-center">Cart is Empty</h3>
+</div>
+ }
+ @else {
+<div class="bg-neutral-900 min-h-screen p-3 sm:p-6">
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- Cart Items List -->
+    <div class="space-y-4 mb-8">
+      @for (item of cartItems; track item.productId) {
+ <div class="bg-neutral-800 rounded-lg p-3 sm:p-4 border border-neutral-700 w-full ">
+  <div class="flex flex-col sm:flex-row gap-4">
+     @for (image of item.images ; track $index) {
+            @if(image.isMain){
+    
+    <div class="shrink-0 w-full sm:w-auto">
+      <img 
+        [src]="'https://localhost:7187'+image.imageUrl" 
+        [alt]="item.productName"
+        class="w-full sm:w-32 h-40 sm:h-48 object-cover rounded-lg"
+      />
+    </div>}}
+    
+    <div class="flex-1 flex flex-col justify-between min-w-0">
+      
+      <div class="flex justify-between items-start mb-4 sm:mb-0">
+        <div class="flex-1 pr-2 min-w-0">
+          <h4 class="text-white text-lg sm:text-xl font-semibold mb-2 wrap-break-word ">
+            {{ item.productName }}
+          </h4>
+
+                  <p class="text-gray-400 text-sm mb-2 sm:mb-3">
+                    {{ item.category }}
+                  </p>
+                  <h3 class="text-yellow-400 text-lg font-bold">
+                    {{ item.price }}$
+                  </h3>
+                </div>
+                
+                <!-- Delete Button -->
+                <button 
+                  (click)="removeItem(item.productId)"
+                  class="text-red-500 hover:text-red-400 transition-colors p-2 -mt-1 flex-shrink-0 hover:cursor-pointer"
+                  aria-label="Remove item">
+                  <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+                </button>
+              </div>
+              
+              <!-- Bottom Section: Quantity Controls -->
+              <div class="flex items-center gap-3">
+                <button 
+                  (click)="decreaseQuantity(item.productId)"
+                  class="bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 text-black font-bold w-10 h-10 rounded-md transition-colors flex items-center justify-center text-xl touch-manipulation"
+                  [disabled]="item.quantity <= 1">
+                  −
+                </button>
+                
+                <span class="text-white font-semibold text-lg min-w-[2.5rem] text-center">
+                  {{ item.quantity }}
+                </span>
+                
+                <button 
+                  (click)="increaseQuantity(item.productId)"
+                  class="bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 text-black font-bold w-10 h-10 rounded-md transition-colors flex items-center justify-center text-xl touch-manipulation">
+                  +
+                </button>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+    
+    <!-- Discount Code Section -->
+    <div class="bg-neutral-800 rounded-lg p-4 sm:p-6 border border-neutral-700 mb-6">
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+        <label class="text-white font-medium flex items-center gap-2 text-sm sm:text-base">
+          Do You have Discount code ?
+          <span class="text-blue-400">💳</span>
+        </label>
+        
+        <input 
+          type="text"
+          [(ngModel)]="discountCode"
+          placeholder="Discount Code"
+          class="flex-1 sm:max-w-xs bg-neutral-900 border border-neutral-600 rounded-lg px-4 py-2.5 sm:py-2 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-sm sm:text-base"
+        />
+        
+        <button 
+          (click)="applyDiscount()"
+          class="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold px-6 py-2.5 sm:py-2 rounded-lg transition-colors touch-manipulation text-sm sm:text-base">
+          Check
+        </button>
+      </div>
+    </div>
+    
+    <!-- Cart Totals -->
+    <div class="bg-neutral-800 rounded-lg p-4 sm:p-6 border border-neutral-700">
+      <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
+        <span class="text-yellow-400">CART</span>
+        <span class="text-white"> TOTALS</span>
+      </h2>
+      
+      <div class="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+        <div class="flex justify-between text-base sm:text-lg">
+          <span class="text-gray-300">Subtotal:</span>
+          <span class="text-white font-semibold">{{ getSubtotal() }}$</span>
+        </div>
+        
+        <div class="flex justify-between text-base sm:text-lg">
+          <span class="text-gray-300">Discount:</span>
+          <span class="text-white font-semibold">{{ discountPercentage }}%</span>
+        </div>
+        
+        <div class="h-px bg-neutral-600"></div>
+        
+        <div class="flex justify-between text-lg sm:text-xl">
+          <span class="text-white font-bold">Total:</span>
+          <span class="text-yellow-400 font-bold">{{ total|async}}$</span>
+        </div>
+      </div>
+      
+      <button 
+        (click)="goToCheckout()"
+        class="w-full bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 text-black font-bold py-3 sm:py-3 rounded-lg transition-colors text-base sm:text-lg touch-manipulation hover:cursor-pointer">
+        Go to check out
+      </button>
+    </div>
+    
+  </div>
+</div>
+ }

@@ -1,0 +1,213 @@
+<div class="flex flex-col gap-4">
+<button
+class="bg-white border rounded px-4 py-2 hover:cursor-pointer flex items-center gap-2 hover:bg-gray-100 transition max-w-40"
+(click)="OpenAddCopun()">
+
+<span>Add New Code</span>
+<mat-icon>add</mat-icon>
+
+</button>
+<div class="flex flex-col md:flex md:flex-row gap-5">
+  @for (discount of discounts; track $index) {
+
+   
+    
+<div class="bg-[#1B1B1B] w-full max-w-sm rounded-xl shadow-lg p-4 relative flex flex-col gap-4">
+
+  
+    <span *ngIf="discount.isActive" class="absolute top-3 right-3 bg-green-500 text-xs font-semibold px-3 py-1 rounded-full">
+        Activated
+    </span>
+        <span *ngIf="!discount.isActive" class="absolute top-3 right-3 bg-red-500 text-xs font-semibold px-3 py-1 rounded-full">
+        UnActivated
+    </span>
+
+
+    <div class="flex justify-center">
+        <mat-icon class="bg-amber-400 text-black  rounded-full text-2xl">
+            percent
+        </mat-icon>
+    </div>
+
+ 
+    <div class="flex flex-col gap-1">
+        <label class="text-gray-400 text-sm">Code</label>
+        <input
+        type="text"
+        readonly
+        class="bg-[#2A2A2A] text-gray-400 p-2 rounded border border-gray-600 focus:outline-none"
+        [value]="discount.code"/>
+    </div>
+
+ 
+    <div class="flex flex-col gap-1">
+        <label class="text-gray-400 text-sm">Discount</label>
+        <input
+        type="text"
+        readonly
+        class="bg-[#2A2A2A] text-gray-400 p-2 rounded border border-gray-600 focus:outline-none"
+        [value]="discount.percentage"/>
+    </div>
+    <div class="flex justify-between gap-2 mt-2">
+
+        <button (click)="deleteDiscount(discount.id)"
+        class="flex-1 bg-red-500 hover:bg-red-600 text-white p-2 rounded transition">
+            Delete
+        </button>
+
+        <button (click)="updateDiscount(discount)"
+        class="flex-1 bg-green-600 hover:bg-green-700 text-white p-2 rounded transition">
+            Update
+        </button>
+
+    </div>
+
+</div>
+
+  }
+  </div>
+  </div>
+
+
+@if (AddDiscount) {
+
+<!-- Overlay -->
+<div class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+
+<div class="bg-[#0F0F0F] w-full max-w-sm rounded-xl shadow-lg p-5 flex flex-col gap-4 relative">
+
+
+<button
+(click)="OpenAddCopun()"
+class="absolute top-3 right-3 text-gray-400 hover:text-red-400">
+
+<mat-icon>close</mat-icon>
+
+</button>
+
+
+<h3 class="text-white text-xl font-semibold">
+Add New Discount Code
+</h3>
+
+
+<form class="flex flex-col gap-3" [formGroup]="discountForm" (submit)="AddDiscountCode()">
+
+<input
+formControlName="code"
+class="bg-white p-2 rounded border focus:outline-none"
+placeholder="Code" />
+@if (discountForm.get('code')?.touched && discountForm.get('code')?.invalid) {
+
+    @if (discountForm.get('code')?.errors?.['required']) {
+        <span class="text-red-500 text-sm">Code is required</span>
+    }
+
+
+
+}
+
+
+<input
+formControlName="percentage"
+class="bg-white p-2 rounded border focus:outline-none"
+placeholder="Percentage" />
+@if (discountForm.get('percentage')?.touched && discountForm.get('percentage')?.invalid) {
+
+    @if (discountForm.get('percentage')?.errors?.['required']) {
+        <span class="text-red-500 text-sm">percentage is required</span>
+    }
+
+
+
+}
+
+
+
+<input
+type="submit"
+class="bg-green-500 p-2 rounded text-black font-semibold
+hover:bg-green-400 hover:cursor-pointer transition"
+value="Add"  />
+
+</form>
+
+</div>
+
+</div>
+
+}
+
+
+@if (updateForm) {
+
+<!-- Overlay -->
+<div class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+
+  <!-- Modal -->
+  <div class="bg-[#111111] w-full max-w-md rounded-2xl shadow-2xl p-6 flex flex-col gap-5 relative border border-zinc-800">
+
+    <!-- Close Button -->
+    <button
+      (click)="CloseCopun()"
+      class="absolute top-4 right-4 text-zinc-400 hover:text-red-500 transition">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <!-- Title -->
+    <h3 class="text-white text-2xl font-semibold text-center">
+      Update Discount Code
+    </h3>
+
+ 
+    <form class="flex flex-col gap-4" [formGroup]="updateDiscountForm" (submit)="update()">
+
+   
+      <div class="flex items-center justify-between bg-zinc-900 px-4 py-3 rounded-lg border border-zinc-800">
+        <label class="text-zinc-300 font-medium">Active</label>
+        <input
+        formControlName="isActive"
+          type="checkbox"
+          class="w-5 h-5 accent-green-500 cursor-pointer" />
+      </div>
+           @if (discountForm.get('isActive')?.touched && discountForm.get('isActive')?.invalid) {
+
+          @if (discountForm.get('isActive')?.errors?.['required']) {
+            <span class="text-red-500 text-sm">isActive is required</span>
+          }
+
+        }
+
+     
+      <div class="flex flex-col gap-1">
+        <label class="text-zinc-300 text-sm">Discount Percentage</label>
+
+        <input
+          formControlName="percentage"
+          class="bg-zinc-900 text-white px-4 py-2 rounded-lg border border-zinc-700 
+                 focus:outline-none focus:border-green-500 transition"
+          placeholder="Enter percentage (ex: 20)" />
+
+        @if (discountForm.get('percentage')?.touched && discountForm.get('percentage')?.invalid) {
+
+          @if (discountForm.get('percentage')?.errors?.['required']) {
+            <span class="text-red-500 text-sm">Percentage is required</span>
+          }
+
+        }
+      </div>
+
+      <!-- Submit Button -->
+      <input
+        type="submit"
+        value="Update"
+        class="bg-green-500 text-black font-semibold py-2 rounded-lg 
+               hover:bg-green-400 hover:scale-[1.02] transition cursor-pointer" [disabled]="updateDiscountForm.invalid" />
+
+    </form>
+
+  </div>
+
+</div>
+
+}

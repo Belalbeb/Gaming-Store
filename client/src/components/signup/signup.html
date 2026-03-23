@@ -1,0 +1,83 @@
+<app-loading [ngClass]="loading?'flex':'hidden'"></app-loading>
+<div class="bg-black border-gray-800 border-[0.2px] p-5 m-5 min-h-[50vh] flex flex-col gap-5 rounded-2xl relative " data-aos="fade-up">
+
+  <!-- Sign Up badge -->
+  <div class="absolute top-0 right-0 -translate-y-2 translate-x-2">
+    <div class="bg-amber-400 text-black font-bold px-6 py-2 text-lg rounded-tl-full 
+                clip-path-[polygon(0_0,100%_0,90%_100%,0%_100%)] shadow-lg transform -rotate-12">
+      Sign Up
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="flex flex-col gap-2">
+    <h1 class="text-white text-2xl font-bold">Register New Account</h1>
+    <p class="text-gray-400">
+      Already have an account?  
+      <a class="text-amber-300 underline hover:cursor-pointer" routerLink="/signin">Login here</a>
+    </p>
+  </div>
+
+  <!-- Form -->
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-3">
+    
+    <!-- Email -->
+    <label class="text-white">Email</label>
+    <input type="text" formControlName="email"
+           class="bg-white h-10 rounded focus:shadow-amber-100 focus:outline-1 focus:outline-amber-50 px-2 font-medium text-[15px]" />
+    <div *ngIf="registerForm.controls['email'].touched && hasError('email','required')" class="text-red-500 text-sm">Email is required</div>
+    <div *ngIf="registerForm.controls['email'].touched && hasError('email','email')" class="text-red-500 text-sm">Email must be valid</div>
+
+    <!-- Password -->
+    <label class="text-white">Password</label>
+    <div class="relative">
+    <input [type]="visible? 'text':'password'" formControlName="password"
+           class="bg-white h-10 rounded focus:shadow-amber-100 focus:outline-1 focus:outline-amber-50 px-2 w-full font-medium text-[15px] " />
+    <mat-icon class="bg-white absolute right-4 bottom-2" (click)="changeVisibility()">{{visible?'visibility':'visibility_off'}}</mat-icon>
+    </div>
+    <div *ngIf="registerForm.controls['password'].touched && hasError('password','required')" class="text-red-500 text-sm">Password is required</div>
+    <div *ngIf="registerForm.controls['password'].touched && hasError('password','minlength')" class="text-red-500 text-sm">Password must be at least 6 characters</div>
+
+    <!-- Repeat Password -->
+    <label class="text-white">Repeat Password</label>
+    <input type="password" formControlName="repeatPassword"
+           class="bg-white h-10 rounded focus:shadow-amber-100 focus:outline-1 focus:outline-amber-50 px-2" />
+    <div *ngIf="registerForm.controls['repeatPassword'].touched && hasError('repeatPassword','required')" class="text-red-500 text-sm">Repeat password is required</div>
+    <div *ngIf="registerForm.controls['repeatPassword'].touched && registerForm.errors?.['mismatch']" class="text-red-500 text-sm">Passwords do not match</div>
+
+    <!-- Submit Button -->
+    <input
+  type="submit"
+  value="Register"
+  [disabled]="registerForm.invalid"
+  class="bg-amber-300 text-[20px] font-medium rounded p-2 mt-2
+         hover:bg-black hover:text-amber-300 hover:border hover:border-amber-50
+         transition duration-100
+         disabled:opacity-50
+         disabled:cursor-not-allowed
+         disabled:hover:bg-amber-300
+         disabled:hover:text-black"
+/>
+      <div class="text-red-500 text-center text-sm" *ngIf="error!=null">{{error}}</div>
+
+  </form>
+
+
+  <div class="flex flex-col gap-4 w-full max-w-sm mx-auto mt-4">
+    
+
+    <div class="flex items-center text-gray-400">
+      <span class="flex-grow h-px bg-gray-500"></span>
+      <h3 class="px-4 text-gray-400 text-sm font-medium">Or Register With Google</h3>
+      <span class="flex-grow h-px bg-gray-500"></span>
+    </div>
+
+    <!-- Google Button -->
+    <a 
+       class="relative flex items-center justify-center gap-2 w-full border border-gray-500 rounded-lg py-3 px-4 text-gray-50 font-medium hover:bg-gray-700 transition hover:cursor-pointer" (click)="registerWithGoogle()">
+      <mat-icon svgIcon="google" class="w-5 h-5"></mat-icon>
+      Register With Google
+    </a>
+  </div>
+
+</div>

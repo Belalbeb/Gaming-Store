@@ -1,0 +1,70 @@
+<div class="group bg-[#121212] border border-zinc-800 rounded-2xl 
+            flex gap-5 p-4 m-4 max-w-[520px] 
+            hover:border-amber-400 hover:shadow-[0_0_25px_rgba(251,191,36,0.25)]
+            transition-all duration-300">
+
+  <!-- Image -->
+  <div class="w-40 h-40 overflow-hidden rounded-xl">
+    @for (image of product.images ; track $index) {
+      @if(image.isMain){
+        <img
+          [src]="'https://localhost:7187' + image.imageUrl"
+          class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+          alt="game image"
+        />
+      }
+    }
+  </div>
+
+  <!-- Product Info -->
+  <div class="flex flex-col justify-between flex-1">
+
+    <div>
+      <a [routerLink]="['/details', product.id]"
+         class="text-lg font-semibold text-white hover:text-amber-400 transition">
+        {{product.name}}
+      </a>
+
+      <p class="text-sm text-zinc-400 mt-1">
+        {{getCategoryName(product.category)}}
+      </p>
+    </div>
+
+    <!-- Price -->
+    <div class="text-xl font-bold text-amber-400">
+      ${{product.price}}
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex items-center justify-between mt-3">
+
+      <button
+        (click)="AddtoCart(product.id)"
+        class="bg-amber-400 text-black font-semibold px-5 py-2 rounded-lg
+               hover:bg-amber-300 transition flex items-center gap-2">
+
+        <i class="fa-solid fa-cart-shopping"></i>
+        Add to Cart
+      </button>
+
+      <!-- Wishlist -->
+      <div>
+        @if(product.loved){
+          <i class="fa-solid fa-heart text-red-500 text-xl cursor-pointer
+                    hover:scale-125 transition"
+             (click)="toggleUnLike(product.id)">
+          </i>
+        }
+        @else {
+          <i class="fa-regular fa-heart text-white text-xl cursor-pointer
+                    hover:text-red-500 hover:scale-125 transition"
+             (click)="toggleLike(product.id)">
+          </i>
+        }
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

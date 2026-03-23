@@ -1,0 +1,116 @@
+<div class="w-full flex flex-col gap-6">
+
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+<div
+(click)="NavigateToAllProducts()"
+class="group bg-[#1B1B1B] p-6 rounded-2xl border border-zinc-800
+hover:border-amber-400 hover:scale-[1.02]
+transition-all duration-300 cursor-pointer shadow-lg">
+
+<div class="flex justify-between items-center">
+
+<div>
+<h2 class="text-white text-lg font-semibold group-hover:text-amber-400 transition">
+All Products
+</h2>
+
+<p class="text-zinc-400 text-sm mt-1">
+View and manage products
+</p>
+</div>
+
+<div class="bg-amber-400/20 p-3 rounded-xl">
+<mat-icon class="!text-amber-400 text-2xl">
+sports_esports
+</mat-icon>
+</div>
+
+</div>
+</div>
+
+
+
+<a
+routerLink="../add-product"
+class="group bg-[#1B1B1B] p-6 rounded-2xl border border-zinc-800
+hover:border-green-400 hover:scale-[1.02]
+transition-all duration-300 cursor-pointer shadow-lg">
+
+<div class="flex justify-between items-center">
+
+<div>
+<h2 class="text-white text-lg font-semibold group-hover:text-green-400 transition">
+Add New Product
+</h2>
+
+<p class="text-zinc-400 text-sm mt-1">
+Create a new product
+</p>
+</div>
+
+<div class="bg-green-400/20 p-3 rounded-xl">
+<mat-icon class="!text-green-400 text-2xl">
+add
+</mat-icon>
+</div>
+
+</div>
+</a>
+
+
+<a
+routerLink="../admin-orders"
+class="group bg-[#1B1B1B] p-6 rounded-2xl border border-zinc-800
+hover:border-blue-400 hover:scale-[1.02]
+transition-all duration-300 cursor-pointer shadow-lg">
+
+<div class="flex justify-between items-center">
+
+<div>
+<h2 class="text-white text-lg font-semibold group-hover:text-blue-400 transition">
+Orders
+</h2>
+
+<p class="text-zinc-400 text-sm mt-1">
+Manage customer orders
+</p>
+</div>
+
+<div class="bg-blue-400/20 p-3 rounded-xl">
+<mat-icon class="!text-blue-400 text-2xl">
+shopping_cart
+</mat-icon>
+</div>
+
+</div>
+</a>
+
+</div>
+
+
+<div class="bg-[#1B1B1B] p-6 rounded-2xl border border-zinc-800 shadow-lg">
+
+<div class="flex justify-between items-center mb-4">
+
+<h2 class="text-white text-lg font-semibold">
+Products By Category
+</h2>
+
+<span class="text-sm text-zinc-400">
+Analytics
+</span>
+
+</div>
+
+<apx-chart
+[series]="chartOptions.series"
+[chart]="chartOptions.chart"
+[labels]="chartOptions.labels"
+[legend]="chartOptions.legend">
+</apx-chart>
+
+</div>
+
+</div>

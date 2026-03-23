@@ -1,0 +1,23 @@
+@if (isLoading) {
+
+  <app-skeleton-loader [size]="6"></app-skeleton-loader>
+}
+@else {
+
+
+<div
+  class="relative w-full
+         grid grid-cols-1 gap-6
+         sm:grid-cols-2 lg:grid-cols-3
+         pb-6
+         border-b border-gray-400"
+       >
+  <!-- Skeleton Card Grid Loader -->
+  @for (product of products; track $index) {
+  <div data-aos="fade-up">
+  <app-product [product]="product"></app-product>
+  </div>
+  }
+
+</div>
+}

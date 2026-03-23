@@ -1,0 +1,29 @@
+
+@if(isLoading){
+  <app-skeleton-loader [size]="3"></app-skeleton-loader>
+
+
+}
+@else {
+  @if (products.length == 0) {
+    <div class="h-80">
+    <h2 class="text-center text-amber-400 text-xl p-2 m-4 font-medium">{{message}}</h2>
+    </div>
+  }
+  @else {
+<div
+  class="relative w-full
+         grid grid-cols-1 gap-6
+         sm:grid-cols-2 lg:grid-cols-3
+         pb-6
+         border-b border-gray-400"
+       >
+  @for (product of products; track $index) {
+  <div data-aos="fade-up">
+  <app-product [product]="product"></app-product>
+  </div>
+  }
+
+</div>}
+
+}

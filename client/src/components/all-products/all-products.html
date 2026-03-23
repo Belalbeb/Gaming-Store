@@ -1,0 +1,77 @@
+<div class="min-h-screen bg-black text-white px-10 py-5">
+
+  <!-- Search Bar -->
+  <div class="flex justify-center mb-8">
+    <div class="relative w-96">
+  
+      <mat-icon class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+  search
+</mat-icon>
+      <input
+        type="text"
+        placeholder="Search"
+        [(ngModel)]="searchQuery"
+        class="w-full bg-zinc-900 border border-zinc-700 rounded-full py-2.5 pl-10 pr-5 text-sm text-gray-200 placeholder-gray-500 outline-none focus:border-green-500 transition-colors"
+      />
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="w-full">
+
+    <!-- Header -->
+    <div class="grid grid-cols-[160px_1fr_160px_120px_80px] border-b border-zinc-800 pb-3 mb-1">
+      <span class="text-gray-500 text-sm font-semibold">Image</span>
+      <span class="text-gray-500 text-sm font-semibold">Title</span>
+      <span class="text-gray-500 text-sm font-semibold">Platform</span>
+      <span class="text-gray-500 text-sm font-semibold">Price</span>
+      <span class="text-gray-500 text-sm font-semibold">Action</span>
+    </div>
+
+    <!-- Rows -->
+    <div
+      *ngFor="let game of filteredGames"
+      class="grid grid-cols-[160px_1fr_160px_120px_80px] items-center border-b border-zinc-800 py-4 hover:bg-zinc-900/40 transition-colors"
+    >
+      <!-- Image -->
+      <div class="w-16 h-20 rounded overflow-hidden bg-zinc-800 flex-shrink-0">
+        @for (item of game.images; track $index) {
+        <img
+          *ngIf="item.isMain"
+          [src]="'https://localhost:7187'+ item.imageUrl"
+          [alt]="game.name"
+          class="w-full h-full object-cover"
+        
+        />}
+
+      </div>
+
+      <!-- Title -->
+      <span class="text-sm text-gray-200 font-medium pr-4">{{ game.name }}</span>
+
+      <!-- Platform -->
+      <span class="text-sm font-bold text-gray-200">{{ getCategory(game.category)}}</span>
+
+      <!-- Price -->
+      <span class="text-sm text-gray-200">{{ game.price | number:'1.2-2' }}$</span>
+
+      <!-- Action Button -->
+      <div>
+        <button
+          (click)="onAction(game.id)"
+          class="w-9 h-9 bg-green-500 hover:bg-green-400 active:bg-green-600 rounded-md flex items-center justify-center transition-colors cursor-pointer"
+        >
+          <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h18M3 12h12M3 17h8"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div *ngIf="filteredGames.length === 0" class="text-center py-16 text-gray-500 text-sm">
+      No games found for "{{ searchQuery }}"
+    </div>
+
+  </div>
+</div>

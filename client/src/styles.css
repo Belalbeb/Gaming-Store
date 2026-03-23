@@ -1,0 +1,10 @@
+@import "tailwindcss";
+/* You can add global styles to this file, and also import other style files */
+body{
+    background-color:black !important;
+}
+.custom-dialog-container .mat-mdc-dialog-container {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0;
+}

@@ -1,0 +1,74 @@
+@if(orders.length==0){
+<h1 class="text-white text-center text-xl font-medium">No Orders Yet</h1>
+}
+@else {
+    @for (order of orders; track $index) {
+    <div class="bg-[#1a1a1a]  p-4 mt-5">
+
+  <!-- Header Icon -->
+  <div class="mb-4">
+    <div class="w-10 h-10 border-2 border-white rounded-lg flex items-center justify-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Info Grid -->
+  <div class="grid grid-cols-2 gap-3 mb-4">
+    <div class="border border-gray-600 rounded-md px-4 py-3">
+      <span class="text-white text-sm font-medium">Name : <span class="font-normal">{{ order.name }}</span></span>
+    </div>
+    <div class="border border-gray-600 rounded-md px-4 py-3">
+      <span class="text-white text-sm font-medium">Email : <span class="font-normal">{{ order.email }}</span></span>
+    </div>
+    <div class="border border-gray-600 rounded-md px-4 py-3">
+      <span class="text-white text-sm font-medium">Total : <span class="font-normal">{{ order.totalAmount }}$</span></span>
+    </div>
+    <div class="border border-gray-600 rounded-md px-4 py-3">
+      <span class="text-white text-sm font-medium">
+        Status : 
+   <span [ngClass]="{
+  'text-yellow-400': order.status === 0,
+  'text-blue-400': order.status === 1,
+  'text-green-400': order.status === 2,
+  'text-red-400': order.status === 3
+}">
+  {{ getStatusText(order.status) }}
+</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Items -->
+
+  <div class="flex flex-wrap gap-3">
+    <div
+      *ngFor="let item of order.orderItems"
+      class="bg-black border border-gray-700 rounded-md p-2 w-[175px] text-center relative"
+    >
+      <!-- Image + Badge -->
+       <span class="absolute top-0 right-0 bg-yellow-400 text-black text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full z-50">
+          {{ item.quantity }}
+        </span>
+       
+      <div class="relative mb-2">
+        @for (img of item.product.images; track $index) {
+        <img *ngIf="img.isMain" [src]="'https://localhost:7187' + img.imageUrl"[alt]="item.name" class="w-full h-[250px]  rounded-md"/>
+        }
+        
+      </div>
+      <p class="text-white text-sm font-medium">{{ item.product.name }}</p>
+      <p class="text-white text-sm">{{ item.product.price }}$</p>
+   
+    </div>
+  </div>
+
+
+</div>
+
+
+    }
+
+}

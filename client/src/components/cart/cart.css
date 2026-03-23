@@ -1,0 +1,123 @@
+/* Custom styles for cart component */
+
+/* Smooth transitions */
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Disabled button state */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  background-color: inherit;
+}
+
+/* Better touch targets for mobile */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Input focus states */
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+/* Custom scrollbar for the cart items area */
+.space-y-4 {
+  max-height: calc(100vh - 400px);
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.space-y-4::-webkit-scrollbar {
+  width: 8px;
+}
+
+.space-y-4::-webkit-scrollbar-track {
+  background: #262626;
+  border-radius: 4px;
+}
+
+.space-y-4::-webkit-scrollbar-thumb {
+  background: #525252;
+  border-radius: 4px;
+}
+
+.space-y-4::-webkit-scrollbar-thumb:hover {
+  background: #737373;
+}
+
+/* Animation for item removal */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  /* Ensure proper padding on mobile */
+  .bg-neutral-900 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Stack discount section vertically */
+  .flex.flex-col.sm\:flex-row {
+    gap: 0.75rem;
+  }
+  
+  /* Better button sizing on mobile */
+  button {
+    min-height: 44px; /* iOS recommended minimum */
+  }
+  
+  /* Larger text for readability */
+  input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Optimize image display */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .max-w-7xl {
+    max-width: 90%;
+  }
+}
+
+/* Prevent layout shift */
+.min-w-\[2\.5rem\] {
+  min-width: 2.5rem;
+}
+
+/* Loading state (optional) */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Active/focus states for better mobile feedback */
+button:active {
+  transform: scale(0.98);
+}
+
+input:active,
+input:focus {
+  border-color: #3b82f6;
+}

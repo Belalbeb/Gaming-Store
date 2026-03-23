@@ -1,0 +1,49 @@
+<div
+  class="bg-black text-white p-8 rounded-2xl w-full max-w-md
+         animate-[fadeIn_.3s_ease-out]">
+
+  <!-- Icon -->
+  <div class="flex justify-center mb-4">
+    <div
+      class="w-16 h-16 rounded-full bg-amber-400 flex items-center
+             justify-center shadow-lg shadow-amber-500/50
+             animate-pulse">
+
+      <mat-icon class="text-black text-3xl">lock</mat-icon>
+    </div>
+  </div>
+
+  <!-- Title -->
+  <h2 class="text-xl font-semibold text-center mb-2">
+    Login Required
+  </h2>
+
+  <!-- Message -->
+  <p class="text-sm text-gray-400 text-center mb-6">
+    You need to login first to add items to your cart.
+  </p>
+
+  <!-- Buttons -->
+  <div class="flex justify-center gap-4">
+
+    <button (click)="CloseWindow()"
+      mat-dialog-close
+      class="px-5 py-2 rounded-lg border border-gray-700
+             text-gray-400 hover:bg-gray-800 hover:text-white
+             transition duration-300">
+      Cancel
+    </button>
+
+    <button
+      (click)="goToLogin()"
+      class="px-6 py-2 rounded-lg bg-amber-400 text-black
+             font-semibold hover:bg-amber-400
+             hover:-translate-y-1
+             hover:shadow-lg hover:shadow-amber-500/50
+             transition-all duration-300">
+      Login Now
+    </button>
+
+  </div>
+
+</div>

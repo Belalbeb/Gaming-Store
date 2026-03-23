@@ -1,0 +1,165 @@
+<!-- TOGGLE BUTTON (only mobile) -->
+<!-- <button
+(click)="toggleSidebar()"
+class="lg:hidden bg-black/50 fixed top-4 left-4   p-2 rounded">
+<mat-icon *ngIf="!isSidebarOpen" class="!text-yellow-400">menu</mat-icon>
+</button> -->
+
+
+<!-- SIDEBAR -->
+<div
+[class.translate-x-0]="isOpen|async"
+[class.-translate-x-full]="!(isOpen|async)"
+class="fixed md:relative transform transition-transform duration-300 md:translate-x-0 bg-[#0F0F0F] h-full min-w-60 z-40">
+  
+  <!-- CLOSE BUTTON ROW -->
+<div class="lg:hidden absolute top-2 right-2 ">
+  <button
+  *ngIf="isOpen|async"
+    (click)="toggleSidebar()"
+    class="hover:cursor-pointer hover:scale-110 transition-all duration-200 ">
+    <mat-icon class="!text-red-500 !text-2xl hover:!text-red-400">cancel</mat-icon>
+  </button>
+</div>
+<div class="flex flex-col gap-3">
+
+<!-- LOGO -->
+<div class="p-3 border border-b-gray-600 m-2 text-center hover:cursor-pointer mt-4 bg-[#0F0F0F]">
+<h2 class="text-white text-2xl font-medium" (click)="GoToHome()">
+Gaming<span class="text-amber-300">Store</span>
+</h2>
+</div>
+
+
+<!-- OVERVIEW -->
+@if (role=='admin') {
+
+<div class="flex gap-3 m-2 hover:bg-[#1E1E1E] p-3 rounded group hover:cursor-pointer" routerLink="overview">
+<mat-icon class="!text-yellow-400">view_cozy</mat-icon>
+<h3 class="text-xl font-medium text-white group-hover:text-amber-300">Overview</h3>
+</div>
+
+}
+@else {
+
+<div class="flex gap-3 m-2 hover:bg-[#1E1E1E] p-3 rounded group hover:cursor-pointer" (click)="NavigateToOverView()">
+<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+<path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.4 5.6A1 1 0 007 20h10a1 1 0 00.97-.757L19 13M7 13H5.4M9 21a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z"/>
+</svg>
+
+<h3 class="text-xl font-medium text-white group-hover:text-amber-300">
+Overview
+</h3>
+
+</div>
+
+}
+
+
+
+<!-- ALL PRODUCTS -->
+<a *ngIf="role=='admin'"
+class="flex gap-3 m-2 hover:bg-[#1E1E1E] p-3 rounded group hover:cursor-pointer"
+routerLink="all-products">
+
+<mat-icon class="!text-yellow-400">sports_esports</mat-icon>
+
+<h3 class="text-xl font-medium text-white group-hover:text-amber-300">
+All Products
+</h3>
+
+</a>
+
+
+
+<!-- ADD PRODUCT -->
+<a *ngIf="role=='admin'"
+class="flex gap-3 m-2 hover:bg-[#1E1E1E] p-3 rounded group hover:cursor-pointer"
+routerLink="add-product">
+
+<mat-icon class="!text-yellow-400">add_circle</mat-icon>
+
+<h3 class="text-xl font-medium text-white group-hover:text-amber-300">
+Add Product
+</h3>
+
+</a>
+
+
+
+<!-- ORDERS -->
+ @if (role=='admin') {
+  <div
+class="flex gap-3 m-2 hover:bg-[#1E1E1E] p-3 rounded group hover:cursor-pointer"
+(click)="NavigateToAdminOrders()">
+
+<mat-icon class="!text-yellow-400">shopping_cart</mat-icon>
+
+<h3 class="text-xl font-medium text-white group-hover:text-amber-300">
+Orders
+</h3>
+
+</div>
+
+
+
+ }
+ @else {
+<div
+class="flex gap-3 m-2 hover:bg-[#1E1E1E] p-3 rounded group hover:cursor-pointer"
+(click)="NavigateToOrders()">
+
+<mat-icon class="!text-yellow-400">shopping_cart</mat-icon>
+
+<h3 class="text-xl font-medium text-white group-hover:text-amber-300">
+Orders
+</h3>
+
+</div>
+ }
+
+
+<!-- DISCOUNT OR CONTACT -->
+@if (role =='admin') {
+
+<a routerLink="discount"
+class="flex gap-3 m-2 hover:bg-[#1E1E1E] p-3 rounded group hover:cursor-pointer"
+>
+
+<mat-icon class="!text-yellow-400">percent_discount</mat-icon>
+
+<h3 class="text-xl font-medium text-white group-hover:text-amber-300">
+Discount
+</h3>
+
+</a>
+
+}
+@else {
+
+<a
+class="group flex gap-3 m-2 hover:bg-[#1E1E1E] p-3 rounded hover:cursor-pointer"
+routerLink="contactus">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+class="w-5 h-5 text-yellow-400"
+fill="none"
+viewBox="0 0 24 24"
+stroke="currentColor"
+stroke-width="1.8">
+
+<path stroke-linecap="round" stroke-linejoin="round" d="M3 18v-6a9 9 0 1118 0v6"/>
+<path stroke-linecap="round" stroke-linejoin="round" d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3v5zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3v5z"/>
+
+</svg>
+
+<h3 class="text-xl font-medium text-white group-hover:text-amber-300">
+Contact Us
+</h3>
+
+</a>
+
+}
+
+</div>
+</div>
